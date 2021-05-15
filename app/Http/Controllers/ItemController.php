@@ -8,7 +8,7 @@ class ItemController extends Controller
 {
 	public function index ()
 	{
-		$a = 1;
-		dd($a);
+        $var = 'muscle';
+		return view('item.index', compact('var'));
 	}
 }
