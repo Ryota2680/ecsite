@@ -15,14 +15,14 @@ class AppServiceProvider extends ServiceProvider
     {
         // 管理画面用のクッキー名称、セッションテーブル名を変更する
         $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-        // dd(strpos($uri, '/admin/'));
-        // if (strpos($uri, '/admin/') === 0 || $uri === '/admin') {
+        //これだとアドミンログイン後にセッションがなくなり、永遠にループしてしまう
         // if ($uri == '/terui145/laravel_new/public/admin/login') {
         //     config([
         //         'session.cookie' => config('const.session_cookie_admin'),
         //     ]);
         // }
         
+        //URLに"admin"が含まれる場合、
         if (strstr($uri, '/admin/') !== false || $uri === '/admin/login') {
             config([
                 // 'SESSION_COOKIE_ADMIN',

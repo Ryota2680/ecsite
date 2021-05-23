@@ -33,7 +33,9 @@ class RedirectIfAuthenticated
 
 		if ($guard === 'admin') {
             //アドミン側のログイン後のリダイレクト先
-			$redirectTo = '/admin/home';
+			// $redirectTo = '/admin/home';
+			$redirectTo = '/admin/item/index';
+			// $redirectTo = '/admin/item/iaaaaaax';
 			// $redirectTo = '/admin/login';
 		}
 		if (Auth::guard($guard)->check()) {
