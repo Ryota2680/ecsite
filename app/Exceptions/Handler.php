@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -34,6 +35,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
+
     public function report(Exception $exception)
     {
         parent::report($exception);
@@ -50,4 +52,31 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+	protected function unauthenticated($request, AuthenticationException $exception)
+	{
+		if($request->expectsJson()){
+			return response()->json(['message' => $exception->getMessage()], 401);
+		}
+
+		if (in_array('admin', $exception->guards())) {
+			return redirect()->guest(route('admin.login'));
+		}
+
+		return redirect()->guest(route('login'));
+	}
+	/*
+	 protected function prepareException(Exception $e)
+	 {
+		if( $e instanceof \Illuminate\Auth\Access\AuthorizationException ) {
+			$e = new \Illuminate\Auth\Access\AuthorizationException(
+				'許可されていません',
+				$e->getCode(),
+				$e // $eがもともと持っていた情報を失わないように引き継ぐ
+			);
+		}
+		 // ↑ あえてデフォルトの動作の前に実行する
+		 $e = parent::prepareException($e);
+		 return $e;
+	 }*/
+
 }

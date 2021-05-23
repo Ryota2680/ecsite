@@ -15,12 +15,30 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
-        }
+//     public function handle($request, Closure $next, $guard = null) 
+//     {
+//         // dump($guard);
+//         if (Auth::guard($guard)->check()) {
+//             // return redirect('/home');
+//             //ログイン後に飛ぶ
+//             return redirect('admin/home');
+//         }
 
-        return $next($request);
-    }
+//         return $next($request);
+//     }
+// }
+    public function handle($request, Closure $next, $guard = null) {
+        //ユーザー側のログイン後のリダイレクト先
+		$redirectTo = '/';
+
+		if ($guard === 'admin') {
+            //アドミン側のログイン後のリダイレクト先
+			$redirectTo = '/admin/home';
+			// $redirectTo = '/admin/login';
+		}
+		if (Auth::guard($guard)->check()) {
+			return redirect($redirectTo);
+		}
+		return $next($request);
+	}
 }
