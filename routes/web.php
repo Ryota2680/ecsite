@@ -23,6 +23,11 @@ Auth::routes();
 Route::get('/', 'ItemController@index')->name('index');
 Route::get('item/detail/{id}', 'ItemController@detail')->name('item.detail');
 
+Route::group(['middleware' => 'auth:user'], function() {
+	Route::get('cart/index', 'CartController@index')->name('cart.index');
+	Route::post('cart/add', 'CartController@add')->name('cart.add');
+	Route::get('cart/detail', 'CartController@delete')->name('cart.delete');
+});
 
 /*
 |--------------------------------------------------------------------------
