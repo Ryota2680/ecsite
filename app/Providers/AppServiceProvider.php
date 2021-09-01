@@ -14,14 +14,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // 管理画面用のクッキー名称、セッションテーブル名を変更する
+		/*
         $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+		 */
         //これだとアドミンログイン後にセッションがなくなり、永遠にループしてしまう
         // if ($uri == '/terui145/laravel_new/public/admin/login') {
         //     config([
         //         'session.cookie' => config('const.session_cookie_admin'),
         //     ]);
         // }
-        
+
+		/*
+
         //URLに"admin"が含まれる場合、
         if (strstr($uri, '/admin/') !== false || $uri === '/admin/login') {
             config([
@@ -30,6 +34,13 @@ class AppServiceProvider extends ServiceProvider
                 str_slug(env('APP_NAME', 'laravel'), '_').'_admin_session'
             ]);
         }
+		 */
+		if (isset($_SERVER['REQUEST_URI'])) {
+			$uri = $_SERVER['REQUEST_URI'];
+		}
+		if (isset($uri) && strstr($uri, '/admin') !== false) {
+			config(['session.cookie' => 'auth-admin']);
+		}
     }
 
     /**
