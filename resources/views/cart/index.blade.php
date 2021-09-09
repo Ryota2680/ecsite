@@ -37,5 +37,5 @@
 @endif
 {{-- <a href="{{ route('charge.confirm') }}" class="btn btn-default">レジへ進む</a><br><br> --}}
 <a href="{{ route('index') }}" class="btn btn-default">戻る</a>
-{{-- <a href="{{ route('address.index') }}" class="btn btn-default">お届け先選択</a> --}}
+<a href="{{ route('address.index') }}" class="btn btn-default">お届け先選択</a>
 @endsection
