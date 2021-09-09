@@ -27,6 +27,14 @@ Route::group(['middleware' => 'auth:user'], function() {
 	Route::get('cart/index', 'CartController@index')->name('cart.index');
 	Route::post('cart/add', 'CartController@add')->name('cart.add');
 	Route::get('cart/detail', 'CartController@delete')->name('cart.delete');
+	Route::get('address/add', 'AddressController@showAddForm')->name('address.add');
+	Route::post('address/add', 'AddressController@add')->name('address.add');
+	Route::get('address/index', 'AddressController@index')->name('address.index');
+	Route::get('address/edit/{id}', 'AddressController@showEditForm')->name('address.edit');
+	Route::post('address/edit/{id}', 'AddressController@edit')->name('address.edit');
+	Route::get('address/delete/{id}', 'AddressController@delete')->name('address.delete');
+	// Route::post('address/update_selected_address/{address_id}', 'AddressController@update_selected_address')->name('address.update_selected_address');
+	Route::post('address/update_selected_address', 'AddressController@update_selected_address')->name('address.update_selected_address');
 });
 
 /*
